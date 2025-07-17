@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <h2>Welcome, <span id="username"></span></h2>
+  <p>Email: <span id="email"></span></p>
+  <img id="profileImg" src="" width="150" height="150" alt="No Image"><br>
+
+  <h3>Upload Image</h3>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="image"><br>
+    <button type="submit">Upload</button>
+  </form>
+
+  <h3>Or Upload Image from URL</h3>
+  <form id="uploadUrlForm">
+    <input type="text" name="imageUrl" placeholder="Paste Image URL"><br>
+    <button type="submit">Save Image</button>
+  </form>
+
+  <h3>Post Comment</h3>
+  <form id="commentForm">
+    <textarea name="comment" rows="4" cols="40" placeholder="Write something..."></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>All Your Comments</h3>
+  <ul id="commentsList"></ul>
+
+  <br><a href="/logout">Logout</a>
+
+  <script src="dashboard.js">
+  </script>
+</body>
+</html>

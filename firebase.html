@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Firebase Phone Auth</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    #status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      background: #f0f8ff;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #4285f4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+    #recaptcha-container {
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Phone Number Login (Free Version)</h1>
+  <div id="status">Initializing system...</div>
+
+  <div id="app" style="display: none;">
+    <label for="phone">Phone Number (with country code):</label>
+    <input type="text" id="phone" placeholder="+919876543210" disabled>
+    
+    <div id="recaptcha-container"></div>
+    <button id="sendOTP" disabled>Send OTP</button>
+    
+    <div id="otp-section" style="display: none; margin-top: 20px;">
+      <label for="otp">Enter OTP:</label>
+      <input type="text" id="otp" placeholder="6-digit code" disabled>
+      <button id="verifyOTP" disabled>Verify OTP</button>
+    </div>
+  </div>
+
+  <!-- Use the older v9 compat version -->
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDqzTFw6-Qmkdh2dxA4En27wj9Kkjskk4k",
+      authDomain: "otp-login-project-8445d.firebaseapp.com",
+      projectId: "otp-login-project-8445d",
+      storageBucket: "otp-login-project-8445d.appspot.com",
+      messagingSenderId: "356750085429",
+      appId: "1:356750085429:web:13ebbb8fcc2750a687107c"
+    };
+
+    function updateStatus(message) {
+      document.getElementById('status').textContent = message;
+      console.log(message);
+    }
+
+    // Initialize Firebase
+    updateStatus("Loading Firebase...");
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Initialize reCAPTCHA v2 (not Enterprise)
+    updateStatus("Setting up reCAPTCHA...");
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      'recaptcha-container', 
+      {
+        size: 'normal',
+        callback: () => {
+          updateStatus("Ready to send OTP");
+          document.getElementById('phone').disabled = false;
+          document.getElementById('sendOTP').disabled = false;
+        }
+      }
+    );
+
+    window.recaptchaVerifier.render().then(() => {
+      document.getElementById('app').style.display = 'block';
+      updateStatus("System ready");
+    });
+
+    // Event Handlers
+    document.getElementById('sendOTP').addEventListener('click', async () => {
+      const phone = document.getElementById('phone').value;
+      if (!phone) {
+        alert("Please enter phone number");
+        return;
+      }
+
+      updateStatus("Sending OTP...");
+      document.getElementById('sendOTP').disabled = true;
+
+      try {
+        window.confirmationResult = await auth.signInWithPhoneNumber(
+          phone, 
+          window.recaptchaVerifier
+        );
+        updateStatus("OTP sent successfully!");
+        document.getElementById('otp').disabled = false;
+        document.getElementById('verifyOTP').disabled = false;
+        document.getElementById('otp-section').style.display = 'block';
+      } catch (error) {
+        updateStatus("Error: " + error.message);
+        document.getElementById('sendOTP').disabled = false;
+        console.error("OTP error:", error);
+      }
+    });
+
+    document.getElementById('verifyOTP').addEventListener('click', async () => {
+      const code = document.getElementById('otp').value;
+      if (!code) {
+        alert("Please enter OTP");
+        return;
+      }
+
+      updateStatus("Verifying OTP...");
+      document.getElementById('verifyOTP').disabled = true;
+
+      try {
+        const result = await window.confirmationResult.confirm(code);
+        updateStatus("Verified! Welcome " + result.user.phoneNumber);
+      } catch (error) {
+        updateStatus("Verification failed: " + error.message);
+        document.getElementById('verifyOTP').disabled = false;
+        console.error("Verify error:", error);
+      }
+    });
+  </script>
+</body>
+</html>

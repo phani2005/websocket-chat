@@ -1,0 +1,60 @@
+/* websocket/style.css */
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+}
+
+.chat-container {
+  max-width: 500px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+ul#messages {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#messages li {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  max-width: 75%;
+}
+
+.me {
+  background-color: #d1ffd6;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.other {
+  background-color: #fff3cd;
+  text-align: left;
+  margin-right: auto;
+}
+
+form {
+  display: flex;
+  margin-top: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  background: #128c7e;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

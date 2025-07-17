@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const urlParams=new URLSearchParams(window.location.search)
+        console.log("urlParams: ",urlParams)
+        const username=urlParams.get("username")
+        const email=urlParams.get("email")
+        if(username&&email){
+            localStorage.setItem("username",username)
+            localStorage.setItem("email",email)
+            window.location.href="loginbutton.html"
+        }else{
+            alert("Google login failed")
+            window.location.href="http//localhost:3000/auth/google"
+        }
+    </script>
+</body>
+</html>

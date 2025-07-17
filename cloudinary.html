@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    #preview {
+      max-width: 200px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Upload an Image</h1>
+  <form id="uploadForm">
+    <input type="file" id="image" accept="image/*" required>
+    <button type="submit">Upload</button>
+  </form>
+  <div id="result"></div>
+  <img id="preview" style="display: none;">
+  <script src="cloudinary.js"></script>
+</body>
+</html>

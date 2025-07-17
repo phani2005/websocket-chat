@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Register with OTP</h2>
+    <form action="" id="registerForm">
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="email" name="email" placeholder="Email" required autocomplete="email"><br>
+        <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+        <button type="submit">Send OTP</button>
+    </form>
+    <div id="otpSection" style="display: none;">
+        <h3>Enter OTP:</h3>
+        <form action="" id="otpForm">
+            <input type="text" name="otp" placeholder="Enter otp" required><br>
+            <input type="hidden" name="email" id="">
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+    <script>
+        const registerForm = document.getElementById("registerForm")
+        const otpForm = document.getElementById("otpForm")
+        registerForm.onsubmit = async (e) => {
+            e.preventDefault()
+            const data = Object.fromEntries(new FormData(registerForm))
+            const res = await fetch("/send-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            const result = await res.json()
+            alert(result.message)
+            if (res.ok) {
+                otpForm.email.value = data.email
+                document.getElementById("otpSection").style.display = "block"
+            }
+        }
+        otpForm.onsubmit = async (e) => {
+            e.preventDefault()
+            const data = Object.fromEntries(new FormData(otpForm))
+            const res = await fetch("/verify-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            const result = await res.json()
+            alert(result.message)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            margin: 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Profile</h1>
+    <h2 id="username"></h2>
+    <h2 id="email"><span>Email:</span></h2>
+    <button id="logout">Logout</button>
+    <script>
+        const logout = document.getElementById("logout")
+        const username = localStorage.getItem("username")
+        const email = localStorage.getItem("email")
+        document.getElementById("username").innerHTML = `<span>Username: </span> ${username}`
+        document.getElementById("email").innerHTML = `<span>Username: </span> ${email}`
+        logout.onclick=function(){
+            localStorage.clear()
+            window.location.href="index.html"
+        }
+    </script>
+</body>
+
+</html>

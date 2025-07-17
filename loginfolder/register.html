@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #676565 ;
+            color: white;
+            height: 100vh;
+        }
+        button{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 5px 30px;
+        }
+        input{
+            margin: 0 auto;
+            width: 15vw;
+            height: 3vh;
+            outline: none;
+            border: none;
+        }
+        form{
+            padding: 20px 15px;
+            background: linear-gradient(to bottom right,#a4a1a1,#f8f4f3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form action="">
+        <input type="text" id="regUserName" placeholder="Enter user name"><br><br>
+        <input type="email" id="regEmail" placeholder="Enter email"><br><br>
+        <input type="password" id="regPassword" placeholder="Enter password"><br><br>
+        <button type="button" id="signup">Sign Up</button><br>
+    </form>
+    <script>
+        document.getElementById("signup").addEventListener("click",async(event)=>{
+            event.preventDefault()
+            const res=await fetch("http//localhost:3000/register",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({
+                    username:document.getElementById("regUserName").value,
+                    email:document.getElementById("regEmail").value,
+                    password:document.getElementById("regPassword").value
+                })
+            })
+            const data=await res.json()
+            if(res.ok){
+                window.location.href="login.html"
+            }else{
+                alert(data.error||"Register failed")
+            }
+        })
+    </script>
+</body>
+
+</html>

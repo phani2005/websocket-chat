@@ -1,0 +1,69 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: linear-gradient(to bottom right, #ffffff, #e6ecf0);
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 40px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      font-size: 18px;
+      color: #555;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #c62828;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="welcome">Welcome, User</h1>
+    <p id="email">Loading email...</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    fetch("/user", { credentials: "include" })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("welcome").innerText = `Welcome, ${data.username}`;
+        document.getElementById("email").innerText = `Email: ${data.email}`;
+      })
+      .catch(() => {
+        window.location.href = "/";
+      });
+
+    function logout() {
+      window.location.href = "/logout";
+    }
+  </script>
+</body>
+</html>

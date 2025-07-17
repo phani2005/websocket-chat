@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            height: 100vh;
+            background-color: #676565 ;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            background: linear-gradient(to bottom right,#a4a1a1,#f8f4f3 );
+        }
+    </style>
+</head>
+
+<body>
+    <button id="loginbutton">Login</button>
+    <script>
+        const loginbutton=document.getElementById("loginbutton")
+        const username=localStorage.getItem("username")
+        if(username){
+            loginbutton.innerHTML=username[0].toUpperCase()
+            loginbutton.style.borderRadius="50%"
+            loginbutton.style.width="60px"
+            loginbutton.style.height="60px"
+            loginbutton.style.display="flex"
+            loginbutton.style.justifyContent="center"
+            loginbutton.style.alignItems="center"
+            loginbutton.onclick=function(){
+                window.location.href="profile.html"
+            }
+        }else{
+            loginbutton.onclick=function(){
+                window.location.href="login.html"
+            }
+        }
+    </script>
+</body>
+
+</html>

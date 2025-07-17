@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Header</title>
+    <link rel="stylesheet" href="example.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h2>🛒 ShopEase</h2>
+        </div>
+
+        <div class="search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="search" placeholder="Search for products, brands..." />
+        </div>
+
+        <div class="nav-icons">
+            <ul>
+                <li><i class="fa-solid fa-user"></i><a href="examplelogin.html">Login</a></li>
+                <li><i class="fa-solid fa-cart-shopping"></i> <a href="examplecart.html">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="item-bar">
+        <div class="item-list" id="item-list"></div>
+    </div>
+    <div class="main-background">
+        <div id="background-gallery"></div>
+        <div class="arrow-icons left-arrow" onclick="scrollGallery(-1)">&#10094;</div>
+        <div class="arrow-icons right-arrow" onclick="scrollGallery(1)">&#10095;</div>
+    </div>
+    <script src="example.js"></script>
+</body>
+
+</html>

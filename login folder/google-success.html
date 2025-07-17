@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Login Success</title>
+</head>
+<body>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    const email = urlParams.get('email');
+
+    if (username && email) {
+      localStorage.setItem("username", username);
+      localStorage.setItem("email", email);
+
+      // ✅ Important: force full reload to ensure DOM updates
+      window.location.replace("index.html");
+    } else {
+      alert("Google login failed!");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

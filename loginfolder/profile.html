@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            height: 100vh;
+            background-color: #676565;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 45px;
+            background: linear-gradient(to bottom right, #a4a1a1, #f8f4f3);
+        }
+        button{
+            padding: 5px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Profile</h1>
+        <h2>Username: <span id="username"></span></h2>
+        <h2>Email: <span id="email"></span></h2>
+        <button type="button" id="logout">Logout</button>
+    </div>
+    <script>
+        document.getElementById("username").innerHTML=localStorage.getItem("username")
+        document.getElementById("email").innerHTML=localStorage.getItem("email")
+        document.getElementById("logout").addEventListener("click",()=>{
+            localStorage.clear()
+            fetch("http://localhost:3000/logout",{
+                method:"GET",
+                credentials:"include"
+            }).then(()=>{
+                window.location.href="index.html"
+            })
+        })
+    </script>
+</body>
+
+</html>

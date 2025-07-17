@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Profile</title>
+</head>
+
+<body>
+    <h1>Welcome, <span id="user-name"></span></h1>
+    <p>Email: <span id="user-email"></span></p>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        const username = localStorage.getItem("username");
+        const email = localStorage.getItem("email");
+
+        if (!username || !email) {
+            window.location.href = "loginbutton.html";
+        }
+
+        document.getElementById("user-name").textContent = username;
+        document.getElementById("user-email").textContent = email;
+
+        function logout() {
+            localStorage.clear(); // Remove frontend user info
+            fetch("http://localhost:3000/logout", {
+                method: "GET",
+                credentials: "include" // important: sends cookie so server clears session
+            }).then(() => {
+                window.location.href = "loginbutton.html";
+            });
+        }
+    </script>
+</body>
+
+</html>
